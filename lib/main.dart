@@ -10,7 +10,6 @@ import 'package:pry_api_rest/presentation/app_routes.dart';
 import 'package:pry_api_rest/presentation/viewmodels/product_viewmodel.dart';
 
 void main() {
-  // Inyección de dependencias
   final dataSource = ProductApiDatasource();
   final repo = ProductRepositoryImpl(dataSource);
 

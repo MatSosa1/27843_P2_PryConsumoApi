@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pry_api_rest/domain/entities/product.dart';
 import 'package:pry_api_rest/presentation/viewmodels/product_viewmodel.dart';
+import 'package:pry_api_rest/presentation/widgets/base_button.dart';
 import 'package:pry_api_rest/presentation/widgets/edit_product_dialog.dart';
 
 class HomePage extends StatelessWidget {
@@ -16,12 +17,13 @@ class HomePage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
-            context: context, 
-            builder: (_) => const EditProductDialog()
+            context: context,
+            builder: (_) => const EditProductDialog(), 
           );
         },
         child: const Icon(Icons.add),
       ),
+      
       body: vm.loading
           ? const Center(child: CircularProgressIndicator())
           : LayoutBuilder(
@@ -33,7 +35,7 @@ class HomePage extends StatelessWidget {
                     child: ConstrainedBox(
                       constraints: BoxConstraints(minWidth: constraints.maxWidth),
                       child: DataTable(
-                        headingRowColor: MaterialStateProperty.all(Colors.grey[200]),
+                        headingRowColor: WidgetStateProperty.all(Colors.grey[200]),
                         columns: const [
                           DataColumn(label: Text("Nombre", style: TextStyle(fontWeight: FontWeight.bold))),
                           DataColumn(label: Text("Precio", style: TextStyle(fontWeight: FontWeight.bold))),
@@ -52,21 +54,24 @@ class HomePage extends StatelessWidget {
                                 Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    IconButton(
-                                      icon: const Icon(Icons.edit, color: Colors.blue),
-                                      onPressed: () {
+                                    BaseButton(
+                                      pressFunction: () {
                                         showDialog(
-                                          context: context, 
-                                          builder: (_) => EditProductDialog(product: p)
+                                          context: context,
+                                          builder: (_) => EditProductDialog(product: p), 
                                         );
-                                      },
+                                      }, 
+                                      backgroundColor: Colors.transparent,
+                                      child: const Icon(Icons.edit, color: Colors.blue), 
                                     ),
-                                    IconButton(
-                                      icon: const Icon(Icons.delete, color: Colors.red),
-                                      onPressed: () {
+                                    const SizedBox(width: 10),
+                                    BaseButton(
+                                      pressFunction: () {
                                         _confirmarEliminacion(context, vm, p);
-                                      },
-                                    ),
+                                      }, 
+                                      backgroundColor: Colors.transparent,
+                                      child: const Icon(Icons.delete, color: Colors.red), 
+                                    )
                                   ],
                                 ),
                               ),
@@ -87,7 +92,7 @@ class HomePage extends StatelessWidget {
       context: context,
       builder: (ctx) => AlertDialog(
         title: const Text("Confirmar"),
-        content: Text("¿Estás seguro de eliminar ${p.name}?"),
+        content: Text("¿Estás seguro de eliminar '${p.name}'?"),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(ctx),

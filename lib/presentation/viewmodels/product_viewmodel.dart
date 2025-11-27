@@ -26,8 +26,9 @@ class ProductViewmodel extends BaseViewmodel {
       products = await getUseCase();
     } catch (e) {
       print("Error cargando productos: $e");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   }
 
   Future<void> agregarProducto(Product p) async {
@@ -56,7 +57,7 @@ class ProductViewmodel extends BaseViewmodel {
     setLoading(true);
     try {
       await deleteUseCase(id);
-      await cargarProductos(); 
+      await cargarProductos();
     } catch (e) {
       print("Error al eliminar: $e");
       setLoading(false);
