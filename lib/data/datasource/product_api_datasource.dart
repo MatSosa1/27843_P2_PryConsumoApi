@@ -5,7 +5,7 @@ import 'package:pry_api_rest/data/datasource/base_datasource.dart';
 import 'package:pry_api_rest/data/models/product_model.dart';
 
 class ProductApiDatasource extends BaseDatasource {
-  final String baseUrl = 'http://localhost:3000/api/productos/';
+  final String baseUrl = 'http://10.0.2.2:3000/api/productos/';
 
   @override
   Future<List<ProductModel>> fetchProducts() async {

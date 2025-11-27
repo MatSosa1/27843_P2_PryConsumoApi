@@ -22,33 +22,41 @@ class ProductViewmodel extends BaseViewmodel {
 
   Future<void> cargarProductos() async {
     setLoading(true);
-
-    products = await getUseCase();
-
+    try {
+      products = await getUseCase();
+    } catch (e) {
+      print("Error cargando productos: $e");
+    }
     setLoading(false);
   }
 
   Future<void> agregarProducto(Product p) async {
     setLoading(true);
-
-    await createUseCase(p);
-
-    setLoading(false);
+    try {
+      await createUseCase(p);
+      await cargarProductos(); 
+    } catch (e) {
+      setLoading(false);
+    }
   }
 
   Future<void> modificarProducto(String id, Product p) async {
     setLoading(true);
-
-    await modifyUseCase(id, p);
-
-    setLoading(false);
+    try {
+      await modifyUseCase(id, p);
+      await cargarProductos();
+    } catch (e) {
+      setLoading(false);
+    }
   }
 
   Future<void> eliminarProducto(String id) async {
     setLoading(true);
-
-    await deleteUseCase(id);
-
-    setLoading(false);
+    try {
+      await deleteUseCase(id);
+      await cargarProductos();
+    } catch (e) {
+      setLoading(false);
+    }
   }
 }
