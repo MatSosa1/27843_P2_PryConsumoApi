@@ -34,8 +34,9 @@ class ProductViewmodel extends BaseViewmodel {
     setLoading(true);
     try {
       await createUseCase(p);
-      await cargarProductos(); 
+      await cargarProductos();
     } catch (e) {
+      print("Error al agregar: $e");
       setLoading(false);
     }
   }
@@ -46,6 +47,7 @@ class ProductViewmodel extends BaseViewmodel {
       await modifyUseCase(id, p);
       await cargarProductos();
     } catch (e) {
+      print("Error al modificar: $e");
       setLoading(false);
     }
   }
@@ -54,8 +56,9 @@ class ProductViewmodel extends BaseViewmodel {
     setLoading(true);
     try {
       await deleteUseCase(id);
-      await cargarProductos();
+      await cargarProductos(); 
     } catch (e) {
+      print("Error al eliminar: $e");
       setLoading(false);
     }
   }

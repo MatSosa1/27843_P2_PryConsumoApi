@@ -1,11 +1,10 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
 import 'package:pry_api_rest/data/datasource/base_datasource.dart';
 import 'package:pry_api_rest/data/models/product_model.dart';
 
 class ProductApiDatasource extends BaseDatasource {
-  final String baseUrl = 'http://10.0.2.2:3000/api/productos/';
+  final String baseUrl = 'http://10.0.2.2:3000/api/productos'; 
 
   @override
   Future<List<ProductModel>> fetchProducts() async {
@@ -17,7 +16,6 @@ class ProductApiDatasource extends BaseDatasource {
     }
 
     final List<dynamic> data = json.decode(res.body)['data'];
-
     return data.map((item) => ProductModel.fromJson(item)).toList();
   }
   
@@ -26,7 +24,7 @@ class ProductApiDatasource extends BaseDatasource {
     final res = await http.post(
       Uri.parse(baseUrl),
       headers: {
-        'Context-Type': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: json.encode(jsonData)
     );
@@ -52,12 +50,12 @@ class ProductApiDatasource extends BaseDatasource {
     final res = await http.put(
       Uri.parse('$baseUrl/$id'),
       headers: {
-        'Context-Type': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: json.encode(data)
     );
 
-    if (res.statusCode != 201) {
+    if (res.statusCode != 201 && res.statusCode != 200) {
       throw Exception('Error al modificar producto $id');
     }
 

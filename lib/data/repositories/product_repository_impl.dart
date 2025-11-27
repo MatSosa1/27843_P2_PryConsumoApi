@@ -17,7 +17,7 @@ class ProductRepositoryImpl implements BaseRepository {
     return _datasource.createProduct({
       'nombre': p.name,
       'precio': p.price,
-      'stock': p.price,
+      'stock': p.stock,
       'categoria': p.category
     });
   }
@@ -34,7 +34,7 @@ class ProductRepositoryImpl implements BaseRepository {
       {
         'nombre': p.name,
         'precio': p.price,
-        'stock': p.price,
+        'stock': p.stock,
         'categoria': p.category
       }
     );
