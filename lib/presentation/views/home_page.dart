@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pry_api_rest/presentation/viewmodels/product_viewmodel.dart';
+import 'package:pry_api_rest/presentation/widgets/base_button.dart';
 
 
 class HomePage extends StatelessWidget {
@@ -24,6 +25,13 @@ class HomePage extends StatelessWidget {
           );
         },
       ),
+      floatingActionButton: BaseButton(
+        pressFunction: () {
+
+        },
+        backgroundColor: Colors.greenAccent,
+        child: Icon(Icons.add),
+      )
     );
   }
 }
